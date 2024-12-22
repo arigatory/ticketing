@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import { CustomError } from "../errors/cutom-error";
+import { Request, Response, NextFunction } from 'express';
+import { CustomError } from '../errors/cutom-error';
 
 export const errorHandler = (
   err: Error,
@@ -7,11 +7,18 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof CustomError) {
-    return res.status(err.statusCode).send({ errors:  err.serializeErrors()});
+  // Check if headers have already been sent
+  if (res.headersSent) {
+    return next(err);
   }
 
-  res.status(400).send({
-    errors: [{message: 'Something went wrong.'}]
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).json({ errors: err.serializeErrors() });
+  }
+
+  console.error(err); // Log the error for debugging
+
+  res.status(500).json({
+    errors: [{ message: 'Something went wrong' }],
   });
 };
