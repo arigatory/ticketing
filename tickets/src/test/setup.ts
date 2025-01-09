@@ -1,7 +1,5 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { app } from '../app';
-import request from 'supertest';
 import jwt from 'jsonwebtoken'
 
 declare global {
@@ -10,7 +8,11 @@ declare global {
 
 let mongo: MongoMemoryServer;
 
+jest.mock('../nats-wrapper')
+
+
 beforeAll(async () => {
+  jest.clearAllMocks();
   process.env.JWT_KEY = 'random_string';
   mongo = await MongoMemoryServer.create();
   const montoUri = mongo.getUri();
