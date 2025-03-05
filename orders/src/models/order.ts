@@ -1,6 +1,7 @@
 import mongoose, { mongo } from 'mongoose';
 
 import { OrderStatus } from '@arigatory-tickets/common';
+import { TicketDoc } from './ticket';
 
 interface OrderAttrs {
   userId: string;
