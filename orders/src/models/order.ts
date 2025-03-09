@@ -3,17 +3,19 @@ import mongoose, { mongo } from 'mongoose';
 import { OrderStatus } from '@arigatory-tickets/common';
 import { TicketDoc } from './ticket';
 
+export { OrderStatus};
+
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;
-  expiresAt: string;
+  expiresAt: Date;
   ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
   userId: string;
   status: OrderStatus;
-  expiresAt: string;
+  expiresAt: Date;
   ticket: TicketDoc;
 }
 
