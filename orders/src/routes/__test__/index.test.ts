@@ -1,9 +1,11 @@
 import request from 'supertest';
 import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
+import mongoose from 'mongoose';
 
 const buildTicket = async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'concert',
     price: 20,
   });
@@ -50,4 +52,3 @@ it('fetches orders for a particular user', async () => {
   expect(response.body[0].ticket.id).toEqual(ticketTwo.id);
   expect(response.body[1].ticket.id).toEqual(ticketThree.id);
 });
-
