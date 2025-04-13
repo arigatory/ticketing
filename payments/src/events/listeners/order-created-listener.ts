@@ -1,7 +1,6 @@
 import {
   Listener,
   OrderCreatedEvent,
-  OrderStatus,
   Subjects,
 } from '@arigatory-tickets/common';
 import { Message } from 'node-nats-streaming';
