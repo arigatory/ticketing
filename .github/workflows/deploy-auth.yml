@@ -2,14 +2,12 @@ name: deploy-auth
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
     paths:
       - 'auth/**'
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -20,13 +18,20 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push arigatory/auth
-          
 
-      # Add kubectl apply step
-      - name: Deploy to Kubernetes
+      # Configure Kubernetes with proper file handling
+      - name: Configure Kubernetes
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
-          kubectl rollout restart deployment auth-depl
+          mkdir -p ~/.kube
+          # Clean and properly format the kubeconfig
+          echo "$KUBE_CONFIG" | base64 -d > ~/.kube/config
+          chmod 600 ~/.kube/config
+          # Verify the config
+          kubectl config view
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
+      # Deploy to Kubernetes
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl get pods
