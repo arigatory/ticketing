@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payments
-          image: arigatory/payments
+          image: arigatory/payments:new-tag
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

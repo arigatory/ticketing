@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: arigatory/orders
+          image: arigatory/orders:new-tag
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
