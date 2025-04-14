@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: arigatory/tickets
+          image: arigatory/tickets:new-tag
           imagePullPolicy: Always
           env:
             - name: NATS_CLIENT_ID
