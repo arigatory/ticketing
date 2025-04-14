@@ -28,4 +28,4 @@ jobs:
       # Deploy to Kubernetes
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f infra/k8s
+          kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod
