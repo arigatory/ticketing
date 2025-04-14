@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: arigatory/client
+        image: arigatory/client:new-tag
         imagePullPolicy: Always
 ---
 apiVersion: v1
